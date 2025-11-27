@@ -101,3 +101,7 @@ The output plot is now split into two panels for clearer analysis:
 * **Bottom Panel (The Alpha Spread):** Shows the difference between your strategy's equity and Buy and Hold ($\text{Strategy} - \text{B and H}$).
     * If the purple line is **above the zero axis**, your bot is currently **outperforming** the market.
     * If the purple line is **trending upwards**, your bot is successfully generating Alpha during that period.
+ 
+## Tips and Tricks
+ 
+Read here for more tips and tricks towards a winning strategy: - [**Tips and Tricks**](Tips_N_Tricks.md)

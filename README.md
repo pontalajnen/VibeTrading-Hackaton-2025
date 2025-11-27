@@ -1,6 +1,6 @@
 # 💰✨ VibeTrading Hackathon: Machine Learning Trading Challenge
 
-Welcome to the **VibeTrading Hackathon**! Your mission is to develop a machine learning strategy that correctly captures the market's "vibe" (momentum and reversals) to generate **Alpha** returns greater than the simple Buy and Hold benchmark.
+Welcome to the **VibeTrading Hackathon**! Your mission is to develop a machine learning strategy that correctly captures the market's "vibe" (momentum and reversals) to generate **Alpha** returns greater than the simple Buy and Hold benchmark (Return better than simple holding the Stock).
 
 **Python:** The programming language you'll be using to write your AI. 
 
@@ -20,8 +20,7 @@ Choose your operating system for complete setup instructions:
 
 The winner will be the team that creates the most profitable bot that successfully manages risk.
 
-* **Primary Metric:** **Alpha** (Strategy Return - Buy and Hold Return). (Higher is better).
-* **Secondary Metric:** **Max Drawdown (MDD)** (Lower is better). This measures the largest percentage drop from a peak in equity.
+* **Primary Metric:** **Alpha** (The bot's return - Buy and Hold Return). (Higher is better).
 
 ---
 
@@ -29,7 +28,7 @@ The winner will be the team that creates the most profitable bot that successful
 
 The project is modular. **Your primary workspace is the `strategies/` folder.**
 
-| Folder / File | Purpose | Editable? |
+| Folder / File | Purpose | Shall be edited? |
 | :--- | :--- | :--- |
 | `backtest_engine.py` | The fixed simulation environment, metrics, and plotting logic. | **NO** |
 | `data/load_data.py` | Loads the historical stock data used for training and testing. | **NO** |
@@ -39,6 +38,9 @@ The project is modular. **Your primary workspace is the `strategies/` folder.**
 
 ---
 
+Note that if any participants modify the files which shall not be edited, no competitive advantage will be gained.
+
+---
 ## 🐍 The 5 Starter Bots (The VibeTrading Team)
 
 You have five pre-built $\text{ML}$ bots, each using a distinct core algorithm to capture the market's "vibe."

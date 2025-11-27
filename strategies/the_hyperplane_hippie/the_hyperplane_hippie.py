@@ -25,7 +25,7 @@ except ImportError:
 # --- CONFIGURATION (Participants can adjust these) ---
 FAST_WINDOW = 20
 SLOW_WINDOW = 50
-N_DAYS_PREDICT = 20       # LEVER 1: Adjust prediction horizon
+N_DAYS_PREDICT = 2       # LEVER 1: Adjust prediction horizon
 SUBMISSION_NAME = 'my_team_name_mlp_submission.joblib'
 INITIAL_CAPITAL = 10000.0 
 # ---------------------------------------------------
@@ -77,7 +77,7 @@ print(f"\n--- 2. MODEL TRAINING ({len(X_train_scaled)} samples) ---")
 model = MLPRegressor(
     random_state=42, 
     max_iter=500, # Try increasing for better convergence
-    hidden_layer_sizes=(150, 75) # Try (150, 75) or (50, 50, 25)
+    hidden_layer_sizes=(50, 25) # Try (150, 75) or (50, 50, 25)
 ).fit(X_train_scaled, y_train)
 
 # =========================================================================

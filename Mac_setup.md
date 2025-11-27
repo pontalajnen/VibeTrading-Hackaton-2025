@@ -15,24 +15,8 @@ brew install python
 python3 --version
 ```
   You shall now see a version number.
-## Step 2: Install Docker
 
-1.  Open Terminal (Press `Cmd + Space`, type "Terminal", press Enter)
-
-2. Download Docker Desktop from [Docker](https://docker.com)
-
-3 . Double-click the downloaded .dmg file
-
-4. Open the Docker app and follow the setup instructions and grant necessary permissions
-
-5. **Verify it worked:**
-     Write this command in the terminal:
-   ```bash
-   docker --version
-   
-  You shall now see a version number.
-   
-## Step 3: Install Git
+## Step 2: Install Git
 
 1. Open Terminal (Press `Cmd + Space`, type "Terminal", press Enter)
 2. Copy and paste this command, then press Enter:
@@ -47,7 +31,7 @@ brew install git
    ```
   You shall now see a version number.
 
-## Step 4: Install VS Code
+## Step 3: Install VS Code
 
 1. Open Terminal (Press `Cmd + Space`, type "Terminal", press Enter)
 

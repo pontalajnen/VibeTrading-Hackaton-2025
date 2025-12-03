@@ -41,10 +41,10 @@ You have five pre-built Machine Learning bots, each using a distinct core algori
 
 ---
 
-## 🛠️ How to Improve the Bots (The Three Levers)
+## 🛠️ How to Improve the Bots
 
 To generate Alpha, you must modify the strategy templates using the three primary levers listed below.
-### 2. Prediction Horizon & Target Tuning
+### 1. Prediction Horizon & Target Tuning
 * **Location:** Look for the `N_DAYS_PREDICT` variable in the `--- CONFIGURATION ---` section.
 * **Goal:** Adjust how far into the future the model tries to predict (e.g., short-term flips or long-term trends).
 * **Classification Bots Only:** Tune the **confidence threshold** (e.g., in `Lord of the Bins`) to only buy if the model is highly confident (e.g., $55\%$ probability of "Up" or higher).

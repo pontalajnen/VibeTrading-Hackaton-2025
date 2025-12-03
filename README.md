@@ -33,7 +33,7 @@ You have five pre-built Machine Learning bots, each using a distinct core algori
 
 | Bot Name | Technique | Approach | Key $\text{sklearn}$ Model |
 | :--- | :--- | :--- | :--- |
-| **Hyperplane Hippie** 🔄 | Multi-Layer Perceptron | **Regression** (Predicts Return Magnitude) | `MLPRegressor` |
+| **The MLP MVP** 🔄 | Multi-Layer Perceptron | **Regression** (Predicts Return Magnitude) | `MLPRegressor` |
 | **Lord of the Bins** 🗑️ | Logistic Regression | **Classification** (Predicts Up/Down Probability) | `LogisticRegression` |
 | **The Baguette Booster** 🥖 | Random Forest | **Classification** (Ensemble Voting) | `RandomForestClassifier` |
 | **KNN Cash Cow** 🐄 | K-Nearest Neighbors | **Classification** (Proximity/Historical Match) | `KNeighborsClassifier` |

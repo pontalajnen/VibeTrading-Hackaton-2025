@@ -14,9 +14,9 @@ Here are the prerequisites for the hackaton. If you already have this installed 
 
 Choose your operating system for complete setup instructions:
 
-- [**Windows Setup Guide**](Windows_setup.md) - Complete installation guide for Windows
-- [**macOS Setup Guide**](Mac_setup.md) - Complete installation guide for Mac
-- [**Linux Setup Guide**](Linux_setup.md) - Complete installation guide for Linux
+- [**Windows Setup Guide**](read_me/Windows_setup.md) - Complete installation guide for Windows
+- [**macOS Setup Guide**](read_me/Mac_setup.md) - Complete installation guide for Mac
+- [**Linux Setup Guide**](read_me/Linux_setup.md) - Complete installation guide for Linux
 
 ## 🏆 The Challenge: Maximize Alpha and Control Risk
 

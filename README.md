@@ -25,7 +25,7 @@ The winner will be the team that creates the most profitable bot that successful
 * **Primary Metric:** **Alpha** (The bot's return - Buy and Hold Return). (Higher is better).
 
 All code editing will be in this repo. 
-**The competition will take place here** :  https://strat-sync-view.lovable.app/
+**The competition will take place here** :  [Dashboard](https://quant-trading.lovable.app/)
 
 ## 🐍 The 5 Starter Bots (The VibeTrading Team)
 

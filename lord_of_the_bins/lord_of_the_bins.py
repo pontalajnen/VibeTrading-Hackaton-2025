@@ -1,3 +1,7 @@
+# =========================================================================
+# Start of file. Do not edit this section.
+# LOGISTIC REGRESSION CLASSIFIER STRATEGY IMPLEMENTATION
+# =========================================================================
 import pandas as pd
 import numpy as np
 import joblib
@@ -6,7 +10,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 import sys
 import os
-
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.abspath(os.path.join(current_dir, '..'))
@@ -20,7 +23,16 @@ try:
 except ImportError as e:
     print(f"FATAL ERROR: Could not import necessary modules. Check project structure and imports. Error: {e}")
     exit()
-# ------------------------------------------------------------------
+
+# LOAD TRAINING DATA
+df = load_training_data()
+if df.empty:
+    print("Cannot proceed without data. Exiting.")
+    exit()
+
+# =========================================================================
+# EDIT FROM THIS POINT DOWNWARDS
+# =========================================================================
 
 # --- CONFIGURATION (Participants can adjust these) ---
 FAST_WINDOW = 20
@@ -32,18 +44,9 @@ INITIAL_CAPITAL = 10000.0
 CLASSIFICATION_THRESHOLD = 0.55 
 # ---------------------------------------------------
 
-# 1. LOAD TRAINING DATA
-df = load_training_data()
-if df.empty:
-    print("Cannot proceed without data. Exiting.")
-    exit()
-
-# =========================================================================
 # SECTION A: FEATURE ENGINEERING AND TARGET DEFINITION
-# =========================================================================
-print("\n--- 1. FEATURE ENGINEERING ---")
 
-# CURRENT SIMPLE FEATURES 
+# TODO: Implement additional features as needed 
 df['SMA_Fast'] = df.groupby(level='Ticker')['Close'].transform(lambda x: x.rolling(window=FAST_WINDOW).mean())
 df['SMA_Slow'] = df.groupby(level='Ticker')['Close'].transform(lambda x: x.rolling(window=SLOW_WINDOW).mean())
 df['MA_Difference'] = df['SMA_Fast'] - df['SMA_Slow']
@@ -55,9 +58,7 @@ df['Future_Return_Class'] = np.where(df.groupby(level='Ticker')['Close'].transfo
 
 df.dropna(inplace=True)
 
-# =========================================================================
-# FEATURE SELECTION - UPDATE THIS LIST WITH YOUR FEATURES
-# =========================================================================
+#TODO: Participants MUST update this list if they add new features!
 FEATURE_COLS = ['MA_Difference'] 
 X = df[FEATURE_COLS]
 # Note: Future return is a binary target column for classification
@@ -72,10 +73,8 @@ y_train = y.iloc[:train_size]
 df_local_test = df.iloc[train_size:].copy() 
 team_name = SUBMISSION_NAME.split('_submission')[0]
 
-# =========================================================================
-# SECTION B: TRAIN CLASSIFICATION MODEL (LEVER 3: Tune the model)
-# =========================================================================
-print(f"\n--- 2. MODEL TRAINING ({len(X_train_scaled)} samples) ---")
+#TODO: Tuned the model
+print(f"\n---  MODEL TRAINING ({len(X_train_scaled)} samples) ---")
 
 # Logistic Regression is simple and robust. Participants can try different settings.
 model = LogisticRegression(
@@ -85,7 +84,7 @@ model = LogisticRegression(
 ).fit(X_train_scaled, y_train)
 
 # =========================================================================
-# SECTION C: EXECUTION (FIXED - Uses the Backtest Engine)
+# STOP OF EDITING. DO NOT CHANGE BELOW THIS LINE.
 # =========================================================================
 
 X_test_scaled = scaler.transform(df_local_test[FEATURE_COLS])

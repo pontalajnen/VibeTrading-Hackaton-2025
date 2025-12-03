@@ -1,3 +1,7 @@
+# =========================================================================
+# Start of file. Do not edit this section.
+# RANDOM FOREST STRATEGY IMPLEMENTATION
+# =========================================================================
 import pandas as pd
 import numpy as np
 import joblib
@@ -16,6 +20,14 @@ except ImportError as e:
     print(f"FATAL ERROR: Could not import necessary modules. Check project structure and imports. Error: {e}")
     exit()
 
+df = load_training_data()
+if df.empty:
+    print("Cannot proceed without data. Exiting.")
+    exit()
+
+# =========================================================================
+# EDIT FROM THIS POINT DOWNWARDS
+# =========================================================================
 # --- CONFIGURATION (Participants can adjust these) ---
 FAST_WINDOW = 20
 SLOW_WINDOW = 50
@@ -24,18 +36,8 @@ SUBMISSION_NAME = 'my_team_name_rfr_submission.joblib'
 INITIAL_CAPITAL = 10000.0 
 # ---------------------------------------------------
 
-# LOAD TRAINING DATA
-df = load_training_data()
-if df.empty:
-    print("Cannot proceed without data. Exiting.")
-    exit()
 
-# =========================================================================
-# SECTION A: FEATURE ENGINEERING 
-# =========================================================================
-print("\n--- 1. FEATURE ENGINEERING ---")
-
-# CURRENT SIMPLE FEATURES 
+# TODO: Implement additional features as needed 
 df['SMA_Fast'] = df.groupby(level='Ticker')['Close'].transform(lambda x: x.rolling(window=FAST_WINDOW).mean())
 df['SMA_Slow'] = df.groupby(level='Ticker')['Close'].transform(lambda x: x.rolling(window=SLOW_WINDOW).mean())
 df['MA_Difference'] = df['SMA_Fast'] - df['SMA_Slow']
@@ -47,7 +49,7 @@ df['Future_Return_Class'] = np.where(df.groupby(level='Ticker')['Close'].transfo
 
 df.dropna(inplace=True)
 
-# Participants MUST update this list if they add new features!
+# TODO: Participants MUST update this list if they add new features!
 FEATURE_COLS = ['MA_Difference'] 
 X = df[FEATURE_COLS]
 # Note: We use the new binary target column for classification
@@ -62,9 +64,9 @@ y_train = y.iloc[:train_size]
 df_local_test = df.iloc[train_size:].copy() 
 team_name = SUBMISSION_NAME.split('_submission')[0]
 
-# =========================================================================
-# SECTION B: TRAIN CLASSIFICATION MODEL
-# =========================================================================
+
+# TODO: Tuned the model
+
 print(f"\n--- 2. MODEL TRAINING ({len(X_train_scaled)} samples) ---")
 
 # Random Forest uses an ensemble of trees to make decisions, improving stability.
@@ -77,7 +79,7 @@ model = RandomForestClassifier(
 ).fit(X_train_scaled, y_train)
 
 # =========================================================================
-# SECTION C: EXECUTION (FIXED - Uses the Backtest Engine). DO NOT EDIT
+#  DO NOT EDIT FROM THIS POINT DOWNWARDS
 # =========================================================================
 
 # Get the full path of the current strategy file to save plots correctly

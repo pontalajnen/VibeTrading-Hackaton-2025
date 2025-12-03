@@ -1,3 +1,8 @@
+# =========================================================================
+# Start of file. Do not edit this section.
+# K-NEAREST NEIGHBORS CLASSIFIER STRATEGY IMPLEMENTATION
+# =========================================================================
+
 import pandas as pd
 import numpy as np
 import joblib
@@ -11,15 +16,22 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.abspath(os.path.join(current_dir, '..')) 
 sys.path.append(project_root)
 
-
-# --- IMPORTANT: Import the fixed backtesting engine and data loader ---
 try:
     from backtest_engine import run_single_stock_analysis
     from data.load_data import load_training_data 
 except ImportError as e:
     print(f"FATAL ERROR: Could not import necessary modules. Check project structure and imports. Error: {e}")
     exit()
-# ------------------------------------------------------------------
+
+# 1. LOAD TRAINING DATA
+df = load_training_data()
+if df.empty:
+    print("Cannot proceed without data. Exiting.")
+    exit()
+
+# =========================================================================
+# EDIT FROM THIS POINT DOWNWARDS
+# =========================================================================
 
 # --- CONFIGURATION (Participants can adjust these) ---
 FAST_WINDOW = 20
@@ -29,18 +41,9 @@ SUBMISSION_NAME = 'my_team_name_knn_submission.joblib'
 INITIAL_CAPITAL = 10000.0 
 # ---------------------------------------------------
 
-# 1. LOAD TRAINING DATA
-df = load_training_data()
-if df.empty:
-    print("Cannot proceed without data. Exiting.")
-    exit()
+# SECTION A: FEATURE ENGINEERING 
 
-# =========================================================================
-# 🎯 SECTION A: FEATURE ENGINEERING (LEVER 1: Add features)
-# =========================================================================
-print("\n--- 1. FEATURE ENGINEERING ---")
-
-# CURRENT SIMPLE FEATURES 
+# TODO: Participants can add more features here
 df['SMA_Fast'] = df.groupby(level='Ticker')['Close'].transform(lambda x: x.rolling(window=FAST_WINDOW).mean())
 df['SMA_Slow'] = df.groupby(level='Ticker')['Close'].transform(lambda x: x.rolling(window=SLOW_WINDOW).mean())
 df['MA_Difference'] = df['SMA_Fast'] - df['SMA_Slow']
@@ -52,8 +55,7 @@ df['Future_Return_Class'] = np.where(df.groupby(level='Ticker')['Close'].transfo
 
 df.dropna(inplace=True)
 
-# 2. SPLIT & STANDARDIZATION
-# LEVER 2: Participants MUST update this list if they add new features!
+# TODO: Participants MUST update this list if they add new features!
 FEATURE_COLS = ['MA_Difference'] 
 X = df[FEATURE_COLS]
 # Note: We use the new binary target column for classification
@@ -69,10 +71,9 @@ y_train = y.iloc[:train_size]
 df_local_test = df.iloc[train_size:].copy() 
 team_name = SUBMISSION_NAME.split('_submission')[0]
 
-# =========================================================================
-# 🎯 SECTION B: TRAIN CLASSIFICATION MODEL (LEVER 3: Tune the model)
-# =========================================================================
-print(f"\n--- 2. MODEL TRAINING ({len(X_train_scaled)} samples) ---")
+# SECTION B: TRAIN CLASSIFICATION MODEL (LEVER 3: Tune the model)
+
+print(f"\n---  MODEL TRAINING ({len(X_train_scaled)} samples) ---")
 
 # Key tuning levers: n_neighbors (K) and weights (uniform or distance).
 model = KNeighborsClassifier(
@@ -82,14 +83,14 @@ model = KNeighborsClassifier(
 ).fit(X_train_scaled, y_train)
 
 # =========================================================================
-# 🎯 SECTION C: EXECUTION (FIXED - Uses the Backtest Engine)
+# STOP OF EDITING. DO NOT CHANGE BELOW THIS LINE.
 # =========================================================================
 
 # Get the full path of the current strategy file to save plots correctly
 CURRENT_STRATEGY_PATH = os.path.abspath(__file__)
 
-# 3. RUN INDIVIDUAL STOCK ANALYSIS
-print("\n--- 3. Running Individual Stock Timing Analysis ---")
+# RUN INDIVIDUAL STOCK ANALYSIS
+print("\n---Running Individual Stock Timing Analysis ---")
 
 X_test_scaled = scaler.transform(df_local_test[FEATURE_COLS])
 
@@ -107,6 +108,6 @@ for ticker in TICKERS_IN_TEST:
     # Call the fixed backtesting engine function
     run_single_stock_analysis(df_ticker_data, ticker, INITIAL_CAPITAL, team_name, strategy_file_path=CURRENT_STRATEGY_PATH)
 
-# 4. SUBMIT (SAVE) THE FINAL MODEL
+# SUBMIT (SAVE) THE FINAL MODEL
 joblib.dump(model, SUBMISSION_NAME)
 print(f"\nSUBMISSION READY: Model saved as {SUBMISSION_NAME}")

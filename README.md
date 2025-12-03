@@ -105,4 +105,4 @@ The output plot is now split into two panels for clearer analysis:
  
 ## Tips and Tricks
  
-Read here for more tips and tricks towards a winning strategy: - [**Tips and Tricks**](Tips_N_Tricks.md)
+Read here for more tips and tricks towards a winning strategy: - [**Tips and Tricks**](read_me/Tips_N_Tricks.md)

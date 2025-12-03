@@ -24,27 +24,12 @@ The winner will be the team that creates the most profitable bot that successful
 
 * **Primary Metric:** **Alpha** (The bot's return - Buy and Hold Return). (Higher is better).
 
----
+All code editing will be in this repo. 
+**The competition will take place here** :  https://strat-sync-view.lovable.app/
 
-## 📂 Project Structure
-
-The project is modular. 
-
-| Folder / File | Purpose | Shall be edited? |
-| :--- | :--- | :--- |
-| `backtest_engine.py` | The fixed simulation environment, metrics, and plotting logic. | **NO** |
-| `data/load_data.py` | Loads the historical stock data used for training and testing. | **NO** |
-| `"bot_name/` | **Your primary workspace.** Contains the starting templates for each bot. | **YES** |
-| `README.md` | This guide. | **NO** |
-
----
-
-Note that if any participants modify the files which shall not be edited, no competitive advantage will be gained.
-
----
 ## 🐍 The 5 Starter Bots (The VibeTrading Team)
 
-You have five pre-built Machine Learning bots, each using a distinct core algorithm to beat the market.
+You have five pre-built Machine Learning bots, each using a distinct core algorithm to beat the market. The bots have the prefix bot_ in the begging.
 
 | Bot Name | Technique | Approach | Key $\text{sklearn}$ Model |
 | :--- | :--- | :--- | :--- |
@@ -59,20 +44,19 @@ You have five pre-built Machine Learning bots, each using a distinct core algori
 ## 🛠️ How to Improve the Bots (The Three Levers)
 
 To generate Alpha, you must modify the strategy templates using the three primary levers listed below.
-
-### 1. Feature Engineering (The Alpha Source)
-* **Location:** Look for the section `SECTION A: FEATURE ENGINEERING`.
+### 2. Prediction Horizon & Target Tuning
+* **Location:** Look for the `N_DAYS_PREDICT` variable in the `--- CONFIGURATION ---` section.
+* **Goal:** Adjust how far into the future the model tries to predict (e.g., short-term flips or long-term trends).
+* **Classification Bots Only:** Tune the **confidence threshold** (e.g., in `Lord of the Bins`) to only buy if the model is highly confident (e.g., $55\%$ probability of "Up" or higher).
+* 
+### 2. Feature Engineering (The Alpha Source)
+* **Location:** Look for the section `SECTION A: FEATURE ENGINEERING` in each bot. New features can be imported by using the technical_indicators.py.
 * **Goal:** Create new, predictive input features ($\text{X}$) that the $\text{ML}$ model can learn from. The current bots only use a simple Moving Average Difference.
 * **Ideas:**
     * **Momentum:** Relative Strength Index ($\text{RSI}$), $\text{MACD}$ components.
     * **Volatility:** Average True Range ($\text{ATR}$), volume-adjusted standard deviations.
     * **Market Context:** Compare the stock's performance to the overall $\text{SP 500}$ market.
 * **Critical Step:** If you add a feature, **you MUST update the `FEATURE_COLS` list** inside the strategy file.
-
-### 2. Prediction Horizon & Target Tuning
-* **Location:** Look for the `N_DAYS_PREDICT` variable in the `--- CONFIGURATION ---` section.
-* **Goal:** Adjust how far into the future the model tries to predict (e.g., short-term flips or long-term trends).
-* **Classification Bots Only:** Tune the **confidence threshold** (e.g., in `Lord of the Bins`) to only buy if the model is highly confident (e.g., $55\%$ probability of "Up" or higher).
 
 ### 3. Model Hyperparameter Tuning
 * **Location:** Look for the section `SECTION B: TRAIN MODEL`.
@@ -86,13 +70,14 @@ To generate Alpha, you must modify the strategy templates using the three primar
 
 ## ⚙️ How to Run Your Strategy
 
-1.  Open the corresponding Python file (e.g., `/knn_cash_cow/knn_cash_cow.py`).
-2.  Make your changes to **Sections A and B**.
+1.  Open the corresponding Python file (e.g., `/bot_knn_cash_cow/knn_cash_cow.py`).
+2.  Make your changes to in the suitable places (**EDIT DOWNWARDS FROM THIS POINT**.
 3.  Run the file from your terminal (from the project root):
     ```bash
-    python knn_cash_cow/knn_strategy_template.py
+    python bot_knn_cash_cow/knn_cash_cow.py
     ```
 4.  The script will print metrics to the console and save the visual analysis plot.
+5.  The final submission file with ending .joblib will be located in the /submissions folder.
 
 ### 🖼️ Interpreting the Alpha Plot
 

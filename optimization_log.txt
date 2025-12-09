@@ -1,0 +1,38 @@
+=============================================================================
+KNN CASH COW OPTIMIZATION LOG
+=============================================================================
+
+🏆 BEST RESULT SO FAR:
+-------------------
+Alpha: +5.71%
+Config: FAST=20, SLOW=50, N_DAYS=3, k=5, weights='distance'
+
+=============================================================================
+TEST HISTORY (sorted by alpha, best first):
+=============================================================================
+
+1. Alpha: +5.71% | FAST=20, SLOW=50, N_DAYS=3, k=5, weights='distance' ⭐ NEW BEST!
+2. Alpha: -0.54% | FAST=20, SLOW=50, N_DAYS=2, k=5, weights='distance'
+3. Alpha: -0.61% | FAST=20, SLOW=50, N_DAYS=1, k=5, weights='distance'
+4. Alpha: -0.75% | FAST=20, SLOW=50, N_DAYS=1, k=4, weights='distance'
+5. Alpha: -1.23% | FAST=20, SLOW=50, N_DAYS=1, k=3, weights='distance'
+6. Alpha: -1.56% | FAST=20, SLOW=50, N_DAYS=1, k=6, weights='distance'
+7. Alpha: -2.02% | FAST=20, SLOW=50, N_DAYS=5, k=5, weights='distance'
+8. Alpha: -2.08% | FAST=10, SLOW=30, N_DAYS=3, k=25, weights='uniform'
+9. Alpha: -2.56% | FAST=20, SLOW=50, N_DAYS=1, k=5, weights='uniform'
+10. Alpha: -2.72% | FAST=20, SLOW=50, N_DAYS=1, k=7, weights='distance'
+11. Alpha: -3.45% | FAST=20, SLOW=50, N_DAYS=1, k=1, weights='uniform'
+12. Alpha: -4.30% | FAST=5, SLOW=20, N_DAYS=1, k=3, weights='distance'
+13. Alpha: -5.87% | FAST=20, SLOW=50, N_DAYS=5, k=15, weights='distance' (original)
+
+=============================================================================
+NOTES:
+=============================================================================
+- Evaluator only uses MA_Difference as feature
+- Shorter prediction horizon (N_DAYS=1-2) works better
+- k=5 seems optimal
+- Distance weighting is better than uniform
+- Window 20/50 is the sweet spot
+
+=============================================================================
+

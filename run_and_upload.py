@@ -215,8 +215,8 @@ def upload_submission():
                                 # Look for the result text containing "alpha"
                                 page_text = driver.find_element(By.TAG_NAME, "body").text
                                 
-                                # Search for alpha pattern like "alpha: X.XX%" or "Alpha: X.XX%"
-                                alpha_match = re.search(r'alpha[:\s]+(-?\d+\.?\d*)%', page_text, re.IGNORECASE)
+                                # Search for alpha pattern like "Your alpha: +0.00%" or "alpha: X.XX%"
+                                alpha_match = re.search(r'alpha[:\s]+([+-]?\d+\.?\d*)%', page_text, re.IGNORECASE)
                                 if alpha_match:
                                     alpha_value = alpha_match.group(1)
                                     print(f"\n{'='*60}")

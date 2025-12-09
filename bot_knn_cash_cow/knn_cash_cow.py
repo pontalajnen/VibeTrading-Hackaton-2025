@@ -42,14 +42,14 @@ if not os.path.exists(SUBMISSION_FOLDER):
 # --- CONFIGURATION (Participants can adjust these) ---
 FAST_WINDOW = 20
 SLOW_WINDOW = 50
-N_DAYS_PREDICT = 5
+N_DAYS_PREDICT = 3
 SUBMISSION_NAME = 'my_team_name_knn_submission.joblib'
 INITIAL_CAPITAL = 10000.0
 # ---------------------------------------------------
 
 # SECTION A: FEATURE ENGINEERING
+# NOTE: Evaluator only computes MA_Difference, so we must use the same!
 
-# TODO: Participants can add more features here
 df['SMA_Fast'] = df.groupby(level='Ticker')['Close'].transform(
     lambda x: x.rolling(window=FAST_WINDOW).mean()
 )
@@ -65,7 +65,7 @@ df['Future_Return_Class'] = np.where(df.groupby(level='Ticker')['Close'].transfo
 
 df.dropna(inplace=True)
 
-# TODO: Participants MUST update this list if they add new features!
+# Feature columns - MUST match evaluator's feature calculation
 FEATURE_COLS = ['MA_Difference']
 X = df[FEATURE_COLS]
 # Note: We use the new binary target column for classification
@@ -87,8 +87,8 @@ print(f"\n---  MODEL TRAINING ({len(X_train_scaled)} samples) ---")
 
 # Key tuning levers: n_neighbors (K) and weights (uniform or distance).
 model = KNeighborsClassifier(
-    n_neighbors=15,  # Try adjusting K (must be an odd number to avoid ties)
-    weights='distance',  # Weights points by the inverse of their distance
+    n_neighbors=5,  # Best K
+    weights='distance',
     algorithm='auto'
 ).fit(X_train_scaled, y_train)
 

@@ -41,7 +41,7 @@ if not os.path.exists(SUBMISSION_FOLDER):
 FAST_WINDOW = 10
 SLOW_WINDOW = 30
 N_DAYS_PREDICT = 1  # Shorter prediction horizon for better timing
-SUBMISSION_NAME = 'my_team_name_mlp_submission.joblib'
+SUBMISSION_NAME = '3D1I_mlp_submission.joblib'
 INITIAL_CAPITAL = 10000.0
 # ---------------------------------------------------
 
@@ -129,7 +129,7 @@ df.dropna(inplace=True)
 # The evaluator likely only computes basic features like MA_Difference
 df['MA_Difference'] = df['SMA_Fast'] - df['SMA_Slow']  # Non-normalized version for compatibility
 
-FEATURE_COLS = ['MA_Difference']  # Match original/evaluator format
+FEATURE_COLS = ['MA_Difference', 'RSI_Centered', 'MACD_Hist', 'BB_Position', 'ROC_5', 'Z_Score_20']
 X = df[FEATURE_COLS]
 y = df['Future_Return']
 
@@ -157,15 +157,15 @@ print(f"    Train samples: {len(df_train)}, Test samples: {len(df_local_test)}")
 
 model = MLPRegressor(
     random_state=42,
-    hidden_layer_sizes=(256, 128, 64),        # Smaller network = better generalization to hidden stocks
-    max_iter=1000,                       # Enough iterations to converge
+    hidden_layer_sizes=(64, 32),          # Smaller network for better generalization
+    max_iter=500,                         # Enough iterations to converge
     early_stopping=True,
-    validation_fraction=0.20,           # Larger validation set to detect overfitting
-    n_iter_no_change=15,                # Stop early if not improving
-    alpha=0.01,                         # STRONGER regularization for generalization
+    validation_fraction=0.15,             # Validation set for early stopping
+    n_iter_no_change=20,                  # Stop early if not improving
+    alpha=0.1,                            # Strong regularization to prevent overfitting
     learning_rate='adaptive',
     learning_rate_init=0.001,
-    activation='relu',
+    activation='tanh',                    # tanh often works better for financial data
     verbose=True
 ).fit(X_train_scaled, y_train)
 

@@ -10,6 +10,8 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.preprocessing import StandardScaler
 import sys
 import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(current_dir, '..'))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 CURRENT_STRATEGY_PATH = os.path.abspath(__file__)
 

@@ -74,7 +74,7 @@ def run_single_stock_analysis(df_ticker: pd.DataFrame, ticker: str, initial_capi
 
     # --- METRICS ---
     daily_returns = portfolio_equity.pct_change().dropna()
-    buy_and_hold_return = (df_prices['Close'].iloc[-1] / df_prices['Close'].iloc[0]) - 1.0
+    buy_and_hold_return = (buy_and_hold_equity.iloc[0] / buy_and_hold_equity.iloc[-1]) - 1.0
     strategy_return = (portfolio_equity.iloc[-1] / initial_capital) - 1.0
 
     DAYS_IN_YEAR = 252
@@ -103,7 +103,6 @@ def run_single_stock_analysis(df_ticker: pd.DataFrame, ticker: str, initial_capi
     ax2 = ax1.twinx() 
     ax2.set_ylabel('Equity Value ($)', color='black') 
     ax2.plot(portfolio_equity.index, portfolio_equity, color='tab:red', label='Strategy Equity')
-    ax2.plot(buy_and_hold_equity.index, buy_and_hold_equity, color='black', linestyle='--', label='Buy & Hold Equity')
     ax2.tick_params(axis='y', labelcolor='black')
 
     # Plotting Buy Signals
@@ -136,6 +135,9 @@ def run_single_stock_analysis(df_ticker: pd.DataFrame, ticker: str, initial_capi
     ax3.legend(loc='upper left')
 
     fig.tight_layout()
+    start_date = df_ticker.index.min()
+    end_date = df_ticker.index.max()
+    print(f"Backtesting Window: {start_date} to {end_date}")
 
     # --- SAVE PLOT ---
     output_base_dir = os.path.dirname(strategy_file_path)
@@ -147,5 +149,6 @@ def run_single_stock_analysis(df_ticker: pd.DataFrame, ticker: str, initial_capi
     plt.savefig(FULL_PATH)
     plt.close()
     print(f"Plot saved successfully to: {FULL_PATH}")
+    
     
     return strategy_return, buy_and_hold_return, sharpe_ratio, mdd

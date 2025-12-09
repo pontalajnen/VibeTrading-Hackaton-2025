@@ -2,7 +2,7 @@
 # DO NOT EDIT FROM THIS POINT DOWNWARDS
 # =========================================================================
 
-import pandas as pd
+# import pandas as pd
 import numpy as np
 import joblib
 
@@ -16,7 +16,7 @@ CURRENT_STRATEGY_PATH = os.path.abspath(__file__)
 
 try:
     from backtest_engine import run_single_stock_analysis
-    from data.load_data import load_training_data 
+    from data.load_data import load_training_data
 except ImportError:
     print("FATAL ERROR: Could not import backtest_engine.py. Check your directory structure.")
     exit()
@@ -71,7 +71,7 @@ FEATURE_COLS = ['MA_Difference']
 # MODEL DEFINITION SECTION - CHOOSE YOUR ML APPROACH
 # =========================================================================
 
-print(f"\n--- MODEL TRAINING ---")
+print("\n--- MODEL TRAINING ---")
 
 # Split data
 train_size = int(len(df) * 0.80)
@@ -113,10 +113,10 @@ TICKERS_IN_TEST = df_local_test.index.get_level_values('Ticker').unique()
 for ticker in TICKERS_IN_TEST:
     df_ticker_data = df_local_test.loc[(slice(None), ticker), :].droplevel('Ticker')
     run_single_stock_analysis(
-        df_ticker_data, 
-        ticker, 
-        INITIAL_CAPITAL, 
-        TEAM_NAME, 
+        df_ticker_data,
+        ticker,
+        INITIAL_CAPITAL,
+        TEAM_NAME,
         strategy_file_path=CURRENT_STRATEGY_PATH
     )
 
@@ -126,4 +126,4 @@ for ticker in TICKERS_IN_TEST:
 
 FULL_SUBMISSION_PATH = os.path.join(SUBMISSION_FOLDER, SUBMISSION_NAME)
 joblib.dump(model, FULL_SUBMISSION_PATH)
-#print(f"\nSUBMISSION READY: Model saved as {FULL_SUBMISSION_PATH}")
+# print(f"\nSUBMISSION READY: Model saved as {FULL_SUBMISSION_PATH}")
